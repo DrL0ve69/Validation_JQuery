@@ -23,10 +23,15 @@ public class Membre: IValidatableObject
     [UsernameValid]
     public string Username { get; set; }
 
+    private DateOnly _dateNaissance;
     [Required(ErrorMessage = "class Membre: Date de naissance requise")]
-    [Display(Name = "Date de naissance")]
     [DataType(DataType.Date)]
-    public DateOnly DateNaissance { get; set; }
+    [Display(Name = "Date de naissance")]
+    public DateOnly DateNaissance 
+    {
+        get; 
+        set; 
+    }
     public string UserId => 
         $"{Nom.Substring(0,3).ToUpper()}{Prenom.Substring(0,1).ToUpper()}_{Username}{DateNaissance.Year}";
 
