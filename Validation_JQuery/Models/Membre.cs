@@ -10,13 +10,16 @@ public class Membre: IValidatableObject
     public string Nom { get; set; }
 
 
-    [Required(ErrorMessage = "class Membre: Nom requis")]
+    [Required(ErrorMessage = "class Membre: Prénom requis")]
+    [Display(Name = "Prénom")]
     public string Prenom { get; set; }
 
-    [Required(ErrorMessage = "class Membre: Nom requis")]
+    [Required(ErrorMessage = "class Membre: Email requis")]
+    [DataType(DataType.EmailAddress)]
     public string Email { get; set; }
 
     [Required(ErrorMessage = "class Membre: Username ne peut pas être vide")]
+    [Display(Name = "Pseudonyme")]
     [UsernameValid]
     public string Username { get; set; }
 

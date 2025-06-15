@@ -2,3 +2,10 @@
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
 
 <!-- La validation JQuery vient ici : -->
+<script>
+    $.validator.addMethod("usernamevalid", function (value, element) {
+        return /^\S{4,20}$/.test(value);
+    }, "JQuery Client-Side: Doit contenir un minimum de 4 caractères & maximum 20.");
+
+    $.validator.unobtrusive.adapters.addBool("usernamevalid");
+</script>
