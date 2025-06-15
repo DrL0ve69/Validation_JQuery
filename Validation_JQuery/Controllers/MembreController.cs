@@ -6,9 +6,14 @@ namespace Validation_JQuery.Controllers
 {
     public class MembreController : Controller
     {
+        private readonly IMembres_Repository _membresRepository;
+        public MembreController(IMembres_Repository membresRepository)
+        {
+            _membresRepository = membresRepository;
+        }
         public IActionResult Index()
         {
-            return View(DB_Membres_Repository.ListeMembres);
+            return View(_membresRepository.ListeMembres);
         }
         // GET: Membre/Create
         public IActionResult Create()
@@ -20,7 +25,7 @@ namespace Validation_JQuery.Controllers
         {
             if (ModelState.IsValid)
             {
-                DB_Membres_Repository.ListeMembres.Add(membre);
+                _membresRepository.AjouterMembre(membre);
                 return RedirectToAction(nameof(Index));
             }
             return View(membre);

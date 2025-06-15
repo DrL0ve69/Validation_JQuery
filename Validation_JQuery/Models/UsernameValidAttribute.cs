@@ -6,6 +6,8 @@ namespace Validation_JQuery.Models;
 
 public class UsernameValidAttribute : ValidationAttribute, IClientModelValidator
 {
+    private readonly DB_Membres_Repository _membresRepo;
+    // Server-side validation
     public override bool IsValid(object value)
     {
         if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
@@ -15,8 +17,9 @@ public class UsernameValidAttribute : ValidationAttribute, IClientModelValidator
         var username = value.ToString();
         ErrorMessage = ErrorMessage ?? "class UsernameValidAttribute: Le pseudonyme n'est pas valide.";
         // Vérifier si le username existe déjà dans la base de données
-        return !DB_Membres_Repository.ListeMembres.Exists(m => m.Username.ToUpper() == username.ToUpper());
+        return _membresRepo.ListeMembres.Exists(m => m.Username.ToUpper() == username.ToUpper());
     }
+    // Client-side validation
     public void AddValidation(ClientModelValidationContext context)
     {
         context.Attributes.Add("data-val", "true");

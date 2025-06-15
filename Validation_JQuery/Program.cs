@@ -1,8 +1,12 @@
+using Validation_JQuery.Models.DataBase;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSingleton<IMembres_Repository, DB_Membres_Repository>(); // Permet l'enregistrement sur le serveur
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,5 +29,5 @@ app.MapControllerRoute(
     pattern: "{controller=Membre}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
+DB_Seeders.Seed(app);
 app.Run();

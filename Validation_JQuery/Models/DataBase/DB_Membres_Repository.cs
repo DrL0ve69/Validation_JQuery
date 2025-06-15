@@ -1,27 +1,32 @@
 ﻿namespace Validation_JQuery.Models.DataBase;
 
-public static class DB_Membres_Repository
+public class DB_Membres_Repository : IMembres_Repository
 {
-    public static List<Membre> ListeMembres { get; set; } = new List<Membre>() 
+    private readonly DB_Projet_Context _context;
+    public DB_Membres_Repository(DB_Projet_Context context)
     {
-        new Membre
-        {
-            Nom = "Dupont",
-            Prenom = "Jean",
-            Email = "TitJean@gmail.com",
-            Username = "TitJean99",
-            DateNaissance = new DateOnly(1999, 1, 1),
+        _context = context;
+    }
 
-        },
-                new Membre
-        {
-            Nom = "Doe",
-            Prenom = "John",
-            Email = "DoeDoeJ@gmail.com",
-            Username = "GuessTheDoe",
-            DateNaissance = new DateOnly(1969, 10, 10),
+    public List<Membre> ListeMembres => _context.Membres.ToList();
 
-        },
+    public void AjouterMembre(Membre membre)
+    {
+        _context.Membres.Add(membre);
+    }
 
-    };
+    public Membre GetMembre_Username(string username)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ModifierMembre(Membre membre)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SupprimerMembre(string username)
+    {
+        throw new NotImplementedException();
+    }
 }
