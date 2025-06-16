@@ -20,6 +20,7 @@ public class Membre: IValidatableObject
 
     [Required(ErrorMessage = "class Membre: Email requis")]
     [DataType(DataType.EmailAddress)]
+    [EmailAddress(ErrorMessage = "class Membre: Email invalide.")]
     public string Email { get; set; }
 
     [Required(ErrorMessage = "class Membre: Username ne peut pas être vide")]
