@@ -18,7 +18,7 @@ namespace Validation_JQuery.Controllers
         // GET: Membre/Create
         public IActionResult Create()
         {
-            return View(new Membre());
+            return View();
         }
         [HttpPost]
         public IActionResult Create(Membre membre)

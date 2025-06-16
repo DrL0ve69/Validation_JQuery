@@ -29,5 +29,5 @@ app.MapControllerRoute(
     pattern: "{controller=Membre}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-DB_Seeders.Seed(app);
+
 app.Run();
