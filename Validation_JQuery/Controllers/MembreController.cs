@@ -30,5 +30,30 @@ namespace Validation_JQuery.Controllers
             }
             return View(membre);
         }
+        public IActionResult Supprimer(string username)
+        {
+            _membresRepository.SupprimerMembre(username);
+            return RedirectToAction(nameof(Index),_membresRepository.ListeMembres);
+        }
+        // GET: Membre/Update/username
+        public IActionResult Update(string username)
+        {
+            Membre membre = _membresRepository.GetMembre_Username(username);
+            if (membre == null)
+            {
+                return NotFound();
+            }
+            return View(membre);
+        }
+        [HttpPost]
+        public IActionResult Update(string username, Membre membre) 
+        {
+            if (ModelState.IsValid)
+            {
+                _membresRepository.ModifierMembre(username, membre);
+                return RedirectToAction(nameof(Index), _membresRepository.ListeMembres);
+            }
+            return View(membre);
+        }
     }
 }

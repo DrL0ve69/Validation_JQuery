@@ -11,16 +11,31 @@ public class DB_Membres_Repository : IMembres_Repository
 
     public Membre GetMembre_Username(string username)
     {
-        throw new NotImplementedException();
+        return ListeMembres.FirstOrDefault(m => m.Username.ToUpper() == username.ToUpper());
     }
 
-    public void ModifierMembre(Membre membre)
+    public void ModifierMembre(string username, Membre membre)
     {
-        throw new NotImplementedException();
+        // Pouurait-t-on supprimer l'ancien membre et ajouter le nouveau ?
+        /*
+        ListeMembres.RemoveAll(m => m.Username.ToUpper() == username.ToUpper());
+        ListeMembres.Add(membre);
+        */
+
+        Membre membreOG = GetMembre_Username(username);
+        int index = ListeMembres.IndexOf(membreOG);
+        if (index != -1)
+        {
+            ListeMembres[index] = membre;
+        }
+        else
+        {
+            throw new KeyNotFoundException($"Membre avec le nom d'utilisateur '{username}' non trouvé.");
+        }
     }
 
     public void SupprimerMembre(string username)
     {
-        throw new NotImplementedException();
+        ListeMembres.RemoveAll(m => m.Username.ToUpper() == username.ToUpper());
     }
 }

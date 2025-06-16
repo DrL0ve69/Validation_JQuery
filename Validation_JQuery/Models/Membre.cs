@@ -7,11 +7,15 @@ public class Membre: IValidatableObject
     private List<ValidationResult> _validationResults = new List<ValidationResult>();
 
     [Required(ErrorMessage ="class Membre: Nom requis")]
+    [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$", ErrorMessage =
+    "Le champ Nom doit commencer par une majuscule et contenir uniquement des lettres.")]
+    [Length(3, 25, ErrorMessage = "Minimum de 3 caractères & 25 maximum.")]
     public string Nom { get; set; }
 
 
     [Required(ErrorMessage = "class Membre: Prénom requis")]
     [Display(Name = "Prénom")]
+    [Length(3,25,ErrorMessage ="Minimum de 3 caractères & 25 maximum.")]
     public string Prenom { get; set; }
 
     [Required(ErrorMessage = "class Membre: Email requis")]
@@ -29,11 +33,27 @@ public class Membre: IValidatableObject
     [Display(Name = "Date de naissance")]
     public DateOnly DateNaissance 
     {
-        get; 
-        set; 
+        get => _dateNaissance;
+        set 
+        {
+            if(DateOnly.FromDateTime(DateTime.UtcNow).Year - value.Year >= 18)
+                _dateNaissance = value;
+            else 
+                _validationResults.Add(new ValidationResult("class Membre setter: Vous devez avoir au moins 18 ans pour vous inscrire.", ["DateNaissance"]));
+        }
     }
-    public string UserId => 
-        $"{Nom.Substring(0,3).ToUpper()}{Prenom.Substring(0,1).ToUpper()}_{Username}{DateNaissance.Year}";
+    public string UserId 
+    {
+        get 
+        {
+            if (Nom.Length < 3 || Prenom.Length < 3) 
+            {
+                return "Non-Valide";
+            }
+            return $"{Nom.Substring(0, 3).ToUpper()}{Prenom.Substring(0, 1).ToUpper()}_{Username}{DateNaissance.Year}";
+        }
+    } 
+        
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
