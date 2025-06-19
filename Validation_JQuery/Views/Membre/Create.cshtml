@@ -1,16 +1,17 @@
 ﻿@model Validation_JQuery.Models.Membre
 
 @{
-    ViewData["Title"] = "Create";
+    
+    string action = ViewBag.Action;
 }
 
-<h1>Crréer nouveau membre</h1>
+<h1>Formulaire membre</h1>
 
-<h4>Formulaire d'ajout:</h4>
+<h4>Formulaire d'ajout / modification:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="@action">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nom" class="control-label"></label>
@@ -38,7 +39,7 @@
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Sauvegarder" class="btn btn-primary" />
             </div>
         </form>
     </div>

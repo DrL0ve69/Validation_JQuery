@@ -18,11 +18,13 @@ namespace Validation_JQuery.Controllers
         // GET: Membre/Create
         public IActionResult Create()
         {
+            ViewBag.Action = "Create";
             return View();
         }
         [HttpPost]
         public IActionResult Create(Membre membre)
         {
+            ViewBag.Action = "Create";
             if (ModelState.IsValid)
             {
                 _membresRepository.AjouterMembre(membre);
@@ -38,16 +40,18 @@ namespace Validation_JQuery.Controllers
         // GET: Membre/Update/username
         public IActionResult Update(string username)
         {
+            ViewBag.Action = "Update";
             Membre membre = _membresRepository.GetMembre_Username(username);
             if (membre == null)
             {
                 return NotFound();
             }
-            return View(membre);
+            return View("Create",membre);
         }
         [HttpPost]
         public IActionResult Update(string username, Membre membre) 
         {
+            ViewBag.Action = "Update";
             if (ModelState.IsValid)
             {
                 _membresRepository.ModifierMembre(username, membre);

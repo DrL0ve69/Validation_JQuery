@@ -25,7 +25,7 @@ public class Membre: IValidatableObject
 
     [Required(ErrorMessage = "class Membre: Username ne peut pas être vide")]
     [Display(Name = "Pseudonyme")]
-    [UsernameValid]
+    //[UsernameValid]
     public string Username { get; set; }
 
     private DateOnly _dateNaissance;
