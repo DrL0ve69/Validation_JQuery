@@ -9,7 +9,7 @@ public class Membre: IValidatableObject
     [Required(ErrorMessage ="class Membre: Nom requis")]
     [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$", ErrorMessage =
     "Le champ Nom doit commencer par une majuscule et contenir uniquement des lettres.")]
-    [Length(3, 25, ErrorMessage = "Minimum de 3 caractères & 25 maximum.")]
+    [StringLength(25, MinimumLength = 4, ErrorMessage = "Minimum de 4 caractères & 25 maximum.")]
     public string Nom { get; set; }
 
 
